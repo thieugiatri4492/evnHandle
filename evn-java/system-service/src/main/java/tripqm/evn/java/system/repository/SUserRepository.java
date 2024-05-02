@@ -1,9 +1,12 @@
 package tripqm.evn.java.system.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import tripqm.evn.java.system.model.S_User;
+import org.springframework.stereotype.Repository;
+import tripqm.evn.java.system.domain.S_User;
 
+import java.util.Optional;
+@Repository
 public interface SUserRepository extends JpaRepository<S_User,Long> {
-    S_User findUserByUserName(String userName);
+    Optional<S_User> findUserByUserName(String userName);
     Boolean existsByUserName(String userName);
 }

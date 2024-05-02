@@ -2,16 +2,18 @@ package tripqm.evn.java.system.payload.response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import lombok.experimental.SuperBuilder;
+
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class JwtResponse {
-    String token;
-    final String type = "Bearer";
-    Long id;
+public class UserResponse {
+    String id;
     String userName;
+    String fullName;
+    String email;
+    Set<String> roles;
 }

@@ -1,26 +1,20 @@
 package tripqm.evn.java.system.payload.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class LoginRequest {
+    @Size(min=3,message = "USERNAME_INVALID")
     @NotBlank
-    private String username;
+     String userName;
+    @Size(min=3,message = "PASSWORD_INVALID")
     @NotBlank
-    private String password;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+     String password;
 }
