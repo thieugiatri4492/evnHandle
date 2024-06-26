@@ -1,24 +1,30 @@
 package tripqm.evn.java.system.payload.request;
+
 import jakarta.validation.constraints.*;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import tripqm.evn.java.system.customValidator.NameConstraint;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@FieldDefaults (level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class SignupRequest {
     @NotBlank
-    @Size(min = 3, max = 20,message = "USERNAME_INVALID")
-     String userName;
+    @Size(min = 3, max = 20, message = "USERNAME_INVALID")
+    String userName;
+
     @NotBlank
-    @Size(min = 6, max = 40,message = "PASSWORD_INVALID")
-     String password;
+    @Size(min = 6, max = 40, message = "PASSWORD_INVALID")
+    String password;
+
     @Size(max = 50)
     @Email
-     String email;
-    @Size(max = 100)
-     String fullName;
+    String email;
 
+    @Size(max = 100)
+    @NameConstraint(invalidChar = "<>?`^,.%$#@", message = "NAME_INVALID")
+    String fullName;
 }

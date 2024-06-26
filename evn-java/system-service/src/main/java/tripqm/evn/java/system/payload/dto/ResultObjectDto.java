@@ -9,6 +9,6 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 @NoArgsConstructor
-public class ResultObjectDto<T> extends BaseResultDto{
+public class ResultObjectDto<T> extends BaseResultDto {
     private T data;
 }

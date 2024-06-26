@@ -6,6 +6,7 @@
 --
 -- Table structure for table `role`
 --
+--CREATE DATABASE IF NOT EXISTS sonar;
 CREATE DATABASE IF NOT EXISTS evnsystem;
 USE evnsystem;
 DROP TABLE IF EXISTS `s_user`;
@@ -17,6 +18,6 @@ CREATE TABLE `s_user` (
   `password` varchar(255) DEFAULT NULL,
   `full_name` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `roles` varchar(255) DEFAULT NULL,
+  `roles` varbinary(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

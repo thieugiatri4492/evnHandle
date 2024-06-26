@@ -1,7 +1,8 @@
 package tripqm.evn.java.system.enums;
 
 public enum ResultStatus {
-    SUCCESS(0),FAILED(1);
+    SUCCESS(0),
+    FAILED(1);
 
     private final int statusValue;
 

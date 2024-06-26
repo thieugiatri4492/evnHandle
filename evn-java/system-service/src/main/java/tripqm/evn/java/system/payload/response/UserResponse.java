@@ -1,9 +1,9 @@
 package tripqm.evn.java.system.payload.response;
 
+import java.util.Set;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -15,5 +15,5 @@ public class UserResponse {
     String userName;
     String fullName;
     String email;
-    Set<String> roles;
+    Set<RoleResponse> roles;
 }

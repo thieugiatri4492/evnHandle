@@ -5,4 +5,4 @@ LABEL "Author"="tripqm"
 ENV MYSQL_ROOT_PASSWORD="evnsystempass"
 ENV MYSQL_DATABASE="evnsystem"
 
-ADD init.sql docker-entrypoint-initdb.d/init.sql
+#ADD init.sql docker-entrypoint-initdb.d/init.sql

@@ -1,5 +1,6 @@
 -- Create schema
 CREATE SCHEMA IF NOT EXISTS evnsystem;
+CREATE SCHEMA IF NOT EXISTS sonar;
 
 -- Switch to the "evnsystem" schema
 SET search_path TO evnsystem;
@@ -11,5 +12,5 @@ CREATE TABLE s_user (
     password VARCHAR(255),
     full_name VARCHAR(255),
     email VARCHAR(255),
-    roles VARCHAR(255)
+    roles varbinary(255)
 );

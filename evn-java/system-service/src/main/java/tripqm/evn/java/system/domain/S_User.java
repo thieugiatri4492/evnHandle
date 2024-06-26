@@ -1,16 +1,16 @@
 package tripqm.evn.java.system.domain;
 
+import java.util.Set;
 
 import jakarta.persistence.*;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.Set;
-
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
-@RequiredArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
@@ -20,22 +20,23 @@ public class S_User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name="USER_NAME")
+    @Column(name = "USER_NAME")
     @NonNull
     String userName;
 
-    @Column(name="PASSWORD")
+    @Column(name = "PASSWORD")
     @NonNull
     String password;
 
-    @Column(name="FULL_NAME")
+    @Column(name = "FULL_NAME")
     @NonNull
     String fullName;
 
-    @Column(name="EMAIL")
+    @Column(name = "EMAIL")
     @NonNull
     String email;
 
-    Set<String> roles;
-
+    @ManyToMany
+    @ToString.Exclude
+    Set<S_Role> roles;
 }

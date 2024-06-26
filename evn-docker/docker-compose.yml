@@ -9,6 +9,10 @@ services:
       - mysql:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=evnsystempass
+    healthcheck:
+            test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+            timeout: 20s
+            retries: 10
   
   evnpostgredb:
      build: 
@@ -17,7 +21,35 @@ services:
       - "5432:5432"
      volumes:
       - postgresql:/var/lib/postgresql/data
+     healthcheck:
+       test: ["CMD-SHELL", "pg_isready"]
+       interval: 10s
+       timeout: 5s
+       retries: 5
 
+  sonarqube:
+    image: sonarqube:community
+    hostname: sonarqube
+    container_name: sonarqube
+    depends_on:
+      evnsqldb:
+        condition: service_healthy
+    environment:
+      - SONARQUBE_JDBC_URL=jdbc:postgresql://evnpostgredb:5432/sonar
+      - SONARQUBE_JDBC_USERNAME=sonar
+      - SONARQUBE_JDBC_PASSWORD=sonar
+      #Password sonarqube: tripqm
+      #Sonar check code for evnsystem
+      # mvn clean verify sonar:sonar \
+      #     -Dsonar.projectKey=evnhandle.system \
+      #     -Dsonar.projectName='evnhandle.system' \
+      #     -Dsonar.host.url=http://localhost:9000 \
+      #     -Dsonar.token=sqp_a40bd06b78843abf880507b97b3c99194cf369ac
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+    ports:
+      - "9000:9000"
 volumes:
   mysql: {}
   postgresql: {}
+  sonarqube_data: {}

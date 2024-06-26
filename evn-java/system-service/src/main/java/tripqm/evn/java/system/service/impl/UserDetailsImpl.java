@@ -1,14 +1,16 @@
 package tripqm.evn.java.system.service.impl;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import tripqm.evn.java.system.domain.S_User;
-
 import java.util.Collection;
 import java.util.Objects;
 
-public class UserDetailsImpl  implements UserDetails {
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import tripqm.evn.java.system.domain.S_User;
+
+public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     private Long id;
@@ -22,34 +24,37 @@ public class UserDetailsImpl  implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id, String user_name, String email, String password,
-                           Collection<? extends GrantedAuthority> authorities) {
+    public UserDetailsImpl(
+            Long id,
+            String user_name,
+            String email,
+            String password,
+            Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.user_name = user_name;
         this.email = email;
         this.password = password;
         this.authorities = authorities;
     }
+
     public static UserDetailsImpl build(S_User user) {
 
-        return new UserDetailsImpl(
-                user.getId(),
-                user.getUserName(),
-                user.getEmail(),
-                user.getPassword(),
-                null);
+        return new UserDetailsImpl(user.getId(), user.getUserName(), user.getEmail(), user.getPassword(), null);
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
+
     public Long getId() {
         return id;
     }
+
     public String getEmail() {
         return email;
     }
+
     @Override
     public String getPassword() {
         return password;
@@ -79,12 +84,11 @@ public class UserDetailsImpl  implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         UserDetailsImpl user = (UserDetailsImpl) o;
         return Objects.equals(id, user.id);
     }

@@ -13,6 +13,7 @@ import tripqm.evn.java.system.enums.ResultStatus;
 @NoArgsConstructor
 public abstract class BaseResultDto {
     private ResultStatus status;
+
     @Builder.Default
     private String message = "Executed success";
 }

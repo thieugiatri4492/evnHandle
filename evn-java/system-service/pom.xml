@@ -10,7 +10,7 @@
 	</parent>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>17</java.version>
+		<java.version>21</java.version>
 		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
 		<spring-cloud.version>2023.0.0</spring-cloud.version>
 		<lombok.version>1.18.30</lombok.version>
@@ -18,7 +18,10 @@
 		<lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
 		<jsonwebtoken.version>0.11.5</jsonwebtoken.version>
 		<common-lang.version>3.12.0</common-lang.version>
+		<h2.version>2.2.224</h2.version>
 		<com.nimbusds.version>9.30.1</com.nimbusds.version>
+		<jacoco.version>0.8.12</jacoco.version>
+		<spotless.version>2.43.0</spotless.version>
 	</properties>
 
 	<groupId>tripqm.evn.java.system</groupId>
@@ -51,9 +54,16 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+		<!--Spring boot unit test-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>${h2.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<!--Spring boot jdbc-->
@@ -100,6 +110,11 @@
 			<artifactId>jjwt-jackson</artifactId>
 			<version>${jsonwebtoken.version}</version>
 			<scope>runtime</scope>
+		</dependency>
+		<!--Jackson XML-->
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
 		</dependency>
 		<!-- Lombok -->
 		<dependency>
@@ -185,6 +200,65 @@
 						<arg>-Amapstruct.verbose=true</arg>
 					</compilerArgs>
 				</configuration>
+			</plugin>
+			<!--Jacoco Code coverage-->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<excludes>
+						<exclude>tripqm/evn/java/system/payload/**</exclude>
+						<exclude>tripqm/evn/java/system/domain/**</exclude>
+						<exclude>tripqm/evn/java/system/mapper/**</exclude>
+						<exclude>tripqm/evn/java/system/configuration/**</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<!--Spotless format code-->
+			<plugin>
+				<groupId>com.diffplug.spotless</groupId>
+				<artifactId>spotless-maven-plugin</artifactId>
+				<version>${spotless.version}</version>
+				<configuration>
+					<java>
+						<removeUnusedImports />
+						<toggleOffOn/>
+						<trimTrailingWhitespace/>
+						<endWithNewline/>
+						<indent>
+							<tabs>true</tabs>
+							<spacesPerTab>4</spacesPerTab>
+						</indent>
+						<palantirJavaFormat/>
+						<importOrder>
+							<!-- Specify either order or file, but not both -->
+							<order>java,jakarta,org,com,com.diffplug,</order>
+						</importOrder>
+					</java>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>apply</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

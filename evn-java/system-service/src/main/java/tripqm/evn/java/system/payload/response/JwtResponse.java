@@ -2,7 +2,6 @@ package tripqm.evn.java.system.payload.response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import lombok.experimental.SuperBuilder;
 
 @Data
 @NoArgsConstructor
