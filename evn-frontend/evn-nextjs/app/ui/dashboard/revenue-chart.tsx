@@ -8,12 +8,19 @@ import { Revenue } from '@/app/lib/definitions';
 // https://www.tremor.so/
 // https://www.chartjs.org/
 // https://airbnb.io/visx/
-
-export default async function RevenueChart({
-  revenue,
-}: {
-  revenue: Revenue[];   
-}) {
+async function fetchRevenue():  Promise<Revenue[]> {
+  const response = await fetch(`http://localhost:3000/api/revenue`,{ cache: 'no-store'});
+  const data = await response.json();
+  const resultArray = data.data.result;
+  // Ensure data conforms to the Revenue[] type
+  const revenueData: Revenue[] = resultArray.map((item: any) => ({
+    month: item.revenueMonth, // Adjust this based on the actual structure of each item
+    revenue: item.revenueValue, // Adjust this based on the actual structure of each item
+  }));
+  return revenueData;
+}
+export default async function RevenueChart() {
+  const revenue = await fetchRevenue();
   const chartHeight = 350;
   // NOTE: comment in this code when you get to this point in the course
 
