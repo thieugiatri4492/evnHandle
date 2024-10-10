@@ -1,0 +1,49 @@
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+**/src/main/**/target/
+**/src/test/**/target/
+*.mvn
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+##Node##
+node_modules/
+jspm_packages/
+### Specific file ###
+application.yml
+# local env files
+.env*.local
+.env
+/evn-java/notification-service/src/main/resources/application.yml
+**/evnHandle.git/**
+**/evnHandle.git.bfg-report/**
+#File
+Brevokey.md
+.jar
