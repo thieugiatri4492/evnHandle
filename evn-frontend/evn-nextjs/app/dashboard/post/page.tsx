@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 'use client';
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from 'next/navigation';
@@ -145,13 +144,3 @@ export default function Page() {
         </>
     );
 }
-=======
-export default function Page() {
-    return <p>Post Page</p>;
-}
->>>>>>> 51314af341f726437770efaef38774b54cde97b6
-=======
-export default function Page() {
-    return <p>Post Page</p>;
-}
->>>>>>> parent of 50beb3e (Modify UI of evn)

@@ -7,16 +7,7 @@ import type { User, UserJavaApi } from '@/app/lib/definitions';
 import { cookies } from 'next/headers';
 //import bcrypt from 'bcrypt';
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-//Connect directly to vercel cloud
-async function getUserVercel(email: string): Promise<User | undefined> {
-=======
 async function getUser(email: string): Promise<User | undefined> {
->>>>>>> 51314af341f726437770efaef38774b54cde97b6
-=======
-async function getUser(email: string): Promise<User | undefined> {
->>>>>>> parent of 50beb3e (Modify UI of evn)
     try {
         const user = await sql<User>`SELECT * FROM users WHERE email=${email}`;
         return user.rows[0];
@@ -41,13 +32,6 @@ async function apiLoginJava(userName: string, password: string): Promise<UserJav
 
         })
             .then((response) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
-                //console.log("This is the result from API login java when call in auth nextjs", response);
-=======
->>>>>>> 51314af341f726437770efaef38774b54cde97b6
-=======
->>>>>>> parent of 50beb3e (Modify UI of evn)
                 return response.json();
             })
             .then((data) => {
@@ -69,31 +53,16 @@ export const { auth, signIn, signOut } = NextAuth({
                 const parsedCredentials = z
                     .object({ userName: z.string(), password: z.string().min(5) })
                     .safeParse(credentials);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> 51314af341f726437770efaef38774b54cde97b6
-=======
-
->>>>>>> parent of 50beb3e (Modify UI of evn)
                 if (parsedCredentials.success) {
                     const { userName, password } = parsedCredentials.data;
                     const user = await apiLoginJava(userName, password);
                     if (!user) return null;
-<<<<<<< HEAD
-<<<<<<< HEAD
                     cookies().set('accessToken', user.result.token, {
                         httpOnly: true,
                         path: '/',
                         sameSite: 'lax',
                     });
-=======
                     cookies().set('accessToken', user.result.token);
->>>>>>> 51314af341f726437770efaef38774b54cde97b6
-=======
-                    cookies().set('accessToken', user.result.token);
->>>>>>> parent of 50beb3e (Modify UI of evn)
                     return user as any;
                 }
 
