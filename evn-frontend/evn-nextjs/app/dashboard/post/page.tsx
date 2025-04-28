@@ -1,9 +1,8 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 'use client';
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from 'next/navigation';
-import Post from "@/app/ui/post/post-interface";
+import Post from "@/app/ui/post/post";
 import { Box, Card, CircularProgress, Typography } from "@mui/material";
 import { PostObject, PostResponse } from "@/app/lib/definitions";
 import { useAppContext } from "@/app/app-provider";
@@ -23,6 +22,7 @@ export default function Page() {
     // Ensure that loadPosts is only called once when page changes.
     useEffect(() => {
         if (!accessToken) {
+            console.log("Empty token here");
             navigate.push("/login");
         } else if (page === 1 && posts.length === 0) {
             loadPosts(1); // Initial load for page 1.
@@ -30,6 +30,7 @@ export default function Page() {
     }, [accessToken, navigate]);
 
     const loadPosts = async (page: number) => {
+        console.log("Enter post page!!!");
         if (loading || isFetching.current) return; // Prevent duplicate calls
         isFetching.current = true;
         setLoading(true);
@@ -39,7 +40,7 @@ export default function Page() {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${accessToken}`,
+                    'Set-Cookie': `accessToken=${accessToken}; Path=/; HttpOnly`
                 },
                 credentials: 'include',
             });
@@ -122,15 +123,15 @@ export default function Page() {
                     >
                         Your posts,
                     </Typography>
-                    {posts.map((post, index) => {
+                    {posts.map((post: PostObject, index) => {
                         if (posts.length === index + 1) {
                             return (
                                 <div ref={lastPostElementRef} key={post.id}>
-                                    <Post avatarUrl="" post={post} />
+                                    <Post post={post} />
                                 </div>
                             );
                         } else {
-                            return <Post avatarUrl="" key={post.id} post={post} />;
+                            return <Post key={post.id} post={post} />;
                         }
                     })}
                     {loading && (
@@ -145,13 +146,3 @@ export default function Page() {
         </>
     );
 }
-=======
-export default function Page() {
-    return <p>Post Page</p>;
-}
->>>>>>> 51314af341f726437770efaef38774b54cde97b6
-=======
-export default function Page() {
-    return <p>Post Page</p>;
-}
->>>>>>> parent of 50beb3e (Modify UI of evn)

@@ -1,22 +1,16 @@
 import httpClient from "../../configurations/httpClient";
 import { API_ROUTE } from "../../configurations/configurations";
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { AxiosResponse } from 'axios';
-=======
->>>>>>> parent of 50beb3e (Modify UI of evn)
 import { NextRequest, NextResponse } from "next/server";
 
-<<<<<<< HEAD
 export async function GET(request: NextRequest) {
     const page = request.nextUrl.searchParams.get('page');
-    const cookieStore = cookies();
-    const accessToken = cookieStore.get('accessToken');
+    const accessToken = request.cookies.get('accessToken')?.value;
     //console.log("This is the accesToken get from nextServer", accessToken?.value);
     try {
         const response: AxiosResponse = await httpClient.get(API_ROUTE.MY_POST, {
             headers: {
-                Authorization: `Bearer ${accessToken?.value}`,
+                Authorization: `Bearer ${accessToken}`,
             },
             params: {
                 page: page,
@@ -41,15 +35,5 @@ export async function GET(request: NextRequest) {
         return new NextResponse(JSON.stringify({ error: 'Failed to fetch posts' }), { status: 500 });
     }
 }
-=======
-import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
 
-}
->>>>>>> 51314af341f726437770efaef38774b54cde97b6
-=======
-export async function GET() {
-
-}
->>>>>>> parent of 50beb3e (Modify UI of evn)

@@ -15,8 +15,6 @@ export type UserJavaApi = {
     type: string;
     id: number;
     userName: string;
-<<<<<<< HEAD
-<<<<<<< HEAD
     created: string;
 
   }
@@ -24,6 +22,7 @@ export type UserJavaApi = {
 export type PostObject = {
   id: string,
   content: string,
+  avatarUrl: string,
   userId: number,
   userName: string,
   created: string,
@@ -40,14 +39,6 @@ export type PostResponse = {
     data: PostObject[]
   }
 }
-=======
-  }
-};
->>>>>>> 51314af341f726437770efaef38774b54cde97b6
-=======
-  }
-};
->>>>>>> parent of 50beb3e (Modify UI of evn)
 
 export type Customer = {
   id: string;

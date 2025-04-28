@@ -1,4 +1,19 @@
 services:
+  oracledb:
+    image: oracle/database:19.3.0-se2  # Use the local image
+    container_name: oracledb          # Name of the container
+    ports:
+      - "1521:1521"                   # Map Oracle's listener port
+      - "5500:5500"                   # Map Oracle's EM Express port
+    environment:
+      - ORACLE_SID=CMISSYS            # Set the Oracle SID
+      - ORACLE_PDB=CMISDB           # Set the Pluggable Database (PDB) name
+      - ORACLE_PWD=admin    # Set the SYS and SYSTEM user password
+      - ORACLE_CHARACTERSET=AL32UTF8  # Set the character set
+    volumes:
+      - oracledb_data:/opt/oracle/oradata  # Persistent storage for database data
+      #- ./db-oracle/init_scripts:/opt/oracle/scripts/startup
+
   evnsqldb:
     build: 
       context: ./db-mysql
@@ -9,9 +24,9 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=evnsystempass
     healthcheck:
-            test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
-            timeout: 20s
-            retries: 10
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
   
   evnpostgredb:
      build: 
@@ -117,6 +132,7 @@ services:
 volumes:
   mysql: {}
   postgresql: {}
+  oracledb_data: {}    
   sonarqube_data: {}
   mongodb_data: {}
   neo4j_data: {}

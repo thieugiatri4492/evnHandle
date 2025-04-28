@@ -9,8 +9,6 @@ export async function POST(request: NextRequest) {
         password: loginInfo.password
     }
     const response = await httpClient.post(API_ROUTE.LOGIN, loginResp);
-<<<<<<< HEAD
-<<<<<<< HEAD
     if (!response.data.result.token) {
         return new NextResponse(JSON.stringify(response.data.result));
     }
@@ -20,11 +18,5 @@ export async function POST(request: NextRequest) {
         }
     });
     //console.log("This is the result from API login java", result);
-=======
-    const result = new NextResponse(JSON.stringify(response.data));
->>>>>>> 51314af341f726437770efaef38774b54cde97b6
-=======
-    const result = new NextResponse(JSON.stringify(response.data));
->>>>>>> parent of 50beb3e (Modify UI of evn)
     return result;
 }

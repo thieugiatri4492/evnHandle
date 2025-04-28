@@ -30,8 +30,6 @@ export type State = {
   };
   message?: string | null;
 };
-<<<<<<< HEAD
-<<<<<<< HEAD
 export async function getPosts(page: number) {
   try {
     const url = `http://localhost:3000/api/post?page=${page}`;
@@ -54,12 +52,6 @@ export async function getPosts(page: number) {
     return { message: 'Error fetching posts', status: 500 };
   }
 }
-=======
-
->>>>>>> 51314af341f726437770efaef38774b54cde97b6
-=======
-
->>>>>>> parent of 50beb3e (Modify UI of evn)
 export async function createInvoice(prevState: State, formData: FormData) {
   const validatedFields = CreateInvoice.safeParse({
     customerId: formData.get('customerId'),
