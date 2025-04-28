@@ -5,65 +5,76 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.3</version>
+		<version>3.3.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>tripqm.evn.java</groupId>
-	<artifactId>post-service</artifactId>
+	<artifactId>power-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>post-service</name>
-	<description>Post service for testing post</description>
+	<name>power-service</name>
+	<description>Service use data from cmis</description>
 	<properties>
 		<java.version>21</java.version>
 		<spring-cloud.version>2023.0.3</spring-cloud.version>
 		<projectlombok-lombok.version>1.18.30</projectlombok-lombok.version>
-		<mapstruct.version>1.5.5.Final</mapstruct.version>
 		<lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
+		<mapstruct.version>1.5.5.Final</mapstruct.version>
+		<jacoco.version>0.8.12</jacoco.version>
 		<spotless.version>2.43.0</spotless.version>
+		<com.oracle.database.jdbc.version>21.9.0.0</com.oracle.database.jdbc.version>
+		<jpa.version>3.4.1</jpa.version>
 	</properties>
 	<dependencies>
-		<!--Oauth 2-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
-		</dependency>
-		<!--Validation-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-validation</artifactId>
-		</dependency>
-		<!--Mongodb-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-mongodb</artifactId>
-		</dependency>
-		<!--Spring web-->
+		<!--Spring basic-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<!--OpenFeign-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<version>${jpa.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+		<!--Oauth 2 include jwt and spring security-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+		</dependency>
+		<!--Spring cloud open feign-->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+		<!--Spring boot database oracle jdbc-->
+		<dependency>
+			<groupId>com.oracle.database.jdbc</groupId>
+			<artifactId>ojdbc8</artifactId>
+			<version>${com.oracle.database.jdbc.version}</version>
 		</dependency>
 		<!--Lombok-->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>${projectlombok-lombok.version}</version>
 			<optional>true</optional>
 		</dependency>
-		<!--MapStruct-->
+		<!--Map Struct-->
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
 			<version>${mapstruct.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+			<groupId>jakarta.persistence</groupId>
+			<artifactId>jakarta.persistence-api</artifactId>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
@@ -123,10 +134,11 @@
 					</compilerArgs>
 				</configuration>
 			</plugin>
+			<!--Jacoco Code coverage-->
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.12</version>
+				<version>${jacoco.version}</version>
 				<executions>
 					<execution>
 						<goals>
@@ -143,13 +155,14 @@
 				</executions>
 				<configuration>
 					<excludes>
-						<exclude>tripqm/evn/java/post/dto/**</exclude>
-						<exclude>tripqm/evn/java/post/entity/**</exclude>
-						<exclude>tripqm/evn/java/post/mapper/**</exclude>
-						<exclude>tripqm/evn/java/post/configuration/**</exclude>
+						<exclude>tripqm/evn/java/power/payload/**</exclude>
+						<exclude>tripqm/evn/java/power/domain/**</exclude>
+						<exclude>tripqm/evn/java/power/mapper/**</exclude>
+						<exclude>tripqm/evn/java/power/configuration/**</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
+			<!--Spotless format code-->
 			<plugin>
 				<groupId>com.diffplug.spotless</groupId>
 				<artifactId>spotless-maven-plugin</artifactId>
@@ -171,9 +184,16 @@
 						</importOrder>
 					</java>
 				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>apply</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
-
 	</build>
 
 </project>
